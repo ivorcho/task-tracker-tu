@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+	<title><h:outputText value="Home" /></title>
+	
+	<h:outputStylesheet name="style.css" library="css" />
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+</h:head>
+
+<h:body >
+	<div id="main_view">
+		You are logged in as USER!
+		<h:form>
+			<p:commandButton value="Log out" action="#{loginMB.logout}"></p:commandButton>
+		</h:form>
+	</div>
+</h:body>
+</html>

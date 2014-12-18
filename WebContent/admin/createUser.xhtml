@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+	<title><h:outputText value="Create users" /></title>
+	
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+</h:head>
+
+<h:body >
+	<div id="main_view">
+		<div id="create_user_form">
+			<p:messages showDetail="true" autoUpdate="true" closable="true" globalOnly="true" />
+
+			<h:form>
+				<p:outputLabel for="username" value="Username" />
+				<br />
+				<p:inputText id="username" styleClass="middle" value="#{createUserMB.username}" required="true" requiredMessage="Required field" />
+				<p:message for="username" />
+				<br />
+				<p:outputLabel for="password" value="Password" />
+				<br />
+				<p:password id="password" styleClass="middle" value="#{createUserMB.password}" required="true" requiredMessage="Required field" />
+				<p:message for="password" />
+				<br />
+				<p:outputLabel for="fullName" value="Full Name" />
+				<br />
+				<p:inputText id="fullName" styleClass="middle" value="#{createUserMB.fullName}" required="true" requiredMessage="Required field" />
+				<p:message for="fullName" />
+				<br />
+				<p:outputLabel for="email" value="E-mail" />
+				<br />
+				<p:inputText id="email" styleClass="middle" value="#{createUserMB.email}" required="true" requiredMessage="Required field" validatorMessage="Invalid e-mail format!">
+					<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+				</p:inputText>
+				<p:message for="email" />
+				<br />
+				<p:outputLabel for="accountType" value="Account Type" />
+				<br />
+				<p:selectOneMenu id="accountType" value="#{createUserMB.accountType}" style="width:150px">
+                <f:selectItems value="#{createUserMB.accountTypes}" />
+           		</p:selectOneMenu>
+           		<br />
+           		<br />
+				<p:commandButton  value="Create user"  styleClass="orange_btn" action="#{createUserMB.createUser()}" ajax="false" update="@form" />
+				<br />
+				<br />
+				
+			</h:form>
+			<h:form>
+				<p:commandButton value="Log out" action="#{loginMB.logout}"></p:commandButton>
+			</h:form>
+		</div><!-- login_form  --> 
+	</div>
+</h:body>
+</html>

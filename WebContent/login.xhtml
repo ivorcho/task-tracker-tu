@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+	<title><h:outputText value="Login" /></title>
+	
+	<h:outputStylesheet name="style.css" library="css" />
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+</h:head>
+
+<h:body >
+	<div id="main_view">
+		<div id="login_form">
+			<p:messages showDetail="true" autoUpdate="true" closable="true" globalOnly="true" />
+
+			<h:form>
+				<p:outputLabel for="username" value="Username" />
+				<br />
+				<p:inputText id="username" styleClass="middle" value="#{loginMB.username}" required="true" requiredMessage="Required field" />
+				<p:message for="username" />
+				<br />
+				<p:outputLabel for="password" value="Password" />
+				<br />
+				<p:password id="password" styleClass="middle" value="#{loginMB.password}" required="true" requiredMessage="Required field" />
+				<p:message for="password" />
+				<br />
+				<p:commandButton  value="Log in"  styleClass="orange_btn" action="#{loginMB.login}" ajax="false" update="@form" />
+			</h:form>
+		</div><!-- login_form  --> 
+	</div>
+</h:body>
+</html>
