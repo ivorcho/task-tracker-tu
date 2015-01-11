@@ -34,13 +34,14 @@ public class LoginMB {
 			context.addMessage(null, new FacesMessage("Login failed."));
 			return "";
 		}
-		if (request.isUserInRole(AccountType.ADMIN.toString())) {
-			return "admin/createUser?faces-redirect=true";
-		} else if (request.isUserInRole(AccountType.USER.toString())) {
-			return "user/home?faces-redirect=true";
-		} else {
-			return "";
-		}
+		return "user/home?faces-redirect=true";
+//		if (request.isUserInRole(AccountType.ADMIN.toString())) {
+//			return "admin/createUser?faces-redirect=true";
+//		} else if (request.isUserInRole(AccountType.USER.toString())) {
+//			return "user/home?faces-redirect=true";
+//		} else {
+//			return "";
+//		}
 //		User user = new User(username, password);
 //		user.setAccountType(AccountType.ADMIN);
 //		user.setEmail("asd@asd.asd");
