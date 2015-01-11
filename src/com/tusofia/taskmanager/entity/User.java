@@ -1,6 +1,7 @@
 package com.tusofia.taskmanager.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
@@ -31,6 +33,7 @@ public class User implements Serializable {
 	private String email;
 	private String fullName;
 	private AccountType accountType;
+	private List<Task> tasks;
 	private static final long serialVersionUID = 1L;
 
 	public User() {
@@ -110,6 +113,15 @@ public class User implements Serializable {
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+
+	@OneToMany(mappedBy="user")
+	public List<Task> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
 	}
 
 	public static enum AccountType {
