@@ -7,14 +7,37 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
 	<title><h:outputText value="Home" /></title>
-	
+
 	<h:outputStylesheet name="style.css" library="css" />
 	<h:outputScript library="primefaces" name="jquery/jquery.js" />
 </h:head>
 
-<h:body >
+<h:body>
 	<div id="main_view">
-		You are logged in as USER!
+		<h:form>
+			<p:dataTable var="taks" value="">
+				<p:column headerText="Task name">
+					<h:outputText value="" />
+				</p:column>
+
+				<p:column headerText="Status">
+					<h:outputText value="" />
+				</p:column>
+
+				<p:column headerText="Users assigned">
+					<h:outputText value="" />
+				</p:column>
+
+				<p:column headerText="Due date">
+					<h:outputText value="" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+		<BR />
+		<p:button outcome="../admin/createUser.xhtml" value="Create user" rendered="#{p:ifGranted('ADMIN')}"/>
+		<BR />
+		<p:button outcome="../admin/createUser.xhtml" value="Create task" rendered="#{p:ifGranted('ADMIN')}"/>
+		<BR />
 		<h:form>
 			<p:commandButton value="Log out" action="#{loginMB.logout}"></p:commandButton>
 		</h:form>
