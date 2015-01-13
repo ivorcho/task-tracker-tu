@@ -13,7 +13,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
  
 @ManagedBean
-public class CreateTaskMB {
+public class TaskMB {
          
     private Date dueDate;
 	private String status;
