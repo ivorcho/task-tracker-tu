@@ -22,8 +22,9 @@
 				<br />
 				<p:outputLabel for="status" value="Status" />
 				<br />
-				<p:selectOneMenu id="status" value="#{taskMB.status}" style="width:200px" />
+				<p:selectOneMenu id="status" value="#{taskMB.status}" style="width:200px" >
                 <f:selectItems value="#{taskMB.taskStatuses}" /> <!--needs to be completed -->
+                </p:selectOneMenu>
                 <br />
                 <p:outputLabel for="assignee" value="Assignee" />
 				<br />
