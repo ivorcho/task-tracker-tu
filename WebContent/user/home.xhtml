@@ -15,21 +15,21 @@
 <h:body>
 	<div id="main_view">
 		<h:form>
-			<p:dataTable var="taks" value="">
+			<p:dataTable var="task" value="#{taskMB.tasks}">
 				<p:column headerText="Task name">
-					<h:outputText value="" />
+					<h:outputText value="#{task.name}" />
 				</p:column>
 
 				<p:column headerText="Status">
-					<h:outputText value="" />
+					<h:outputText value="#{task.status}" />
 				</p:column>
 
 				<p:column headerText="Users assigned">
-					<h:outputText value="" />
+					<h:outputText value="#{task.user.username}" />
 				</p:column>
 
 				<p:column headerText="Due date">
-					<h:outputText value="" />
+					<h:outputText value="#{task.dueDate}" />
 				</p:column>
 			</p:dataTable>
 		</h:form>
