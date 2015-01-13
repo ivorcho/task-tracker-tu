@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+	<title><h:outputText value="Task Viewer" /></title>
+	
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+</h:head>
+
+<h:body >
+	<div id="main_view">
+		<div id="task_viewer">
+			<h:outputText value="#{Task.getName()}"/>
+			
+			<h:outputText value="<!-- tastStatus.statusState -->" />
+			
+			<h:outputText value="<!-- taskAssignment.assigmnent -->" />
+			
+			<h:outputText value="<!-- taskDueDate.date -->" />
+			<br/>
+			
+			<h:outputText value="Descrpiption"/>
+			<br/>
+			
+			<h:outputText value="<!-- taskDescription.description -->"/>
+			<br/>
+			
+			<h:outputText value="<!-- taskDescription.description -->"/>
+			<br/>
+			
+			<h:outputText value="Comments: "/>
+			<br/>
+			
+			<h:outputText value="<!-- taskComments.comments --> "/>
+			<br/>
+			
+			<h:inputTextarea value="<!-- inputComment.comment -->"/>
+			<br/>
+			
+			<p:commandButton value="Submit" id="ajax" update="growl" actionListener="#{TaskMb.buttonAction}" styleClass="ui-priority-primary" />
+			
+		</div><!-- taks viewer  --> 
+	</div>
+</h:body>
+</html>
