@@ -36,7 +36,7 @@
 		<BR />
 		<p:button outcome="../admin/createUser.xhtml" value="Create user" rendered="#{p:ifGranted('ADMIN')}"/>
 		<BR />
-		<p:button outcome="../admin/createUser.xhtml" value="Create task" rendered="#{p:ifGranted('ADMIN')}"/>
+		<p:button outcome="../admin/createTask.xhtml" value="Create task" rendered="#{p:ifGranted('ADMIN')}"/>
 		<BR />
 		<h:form>
 			<p:commandButton value="Log out" action="#{loginMB.logout}"></p:commandButton>

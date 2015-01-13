@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+	<title><h:outputText value="Create tasks" /></title>
+	
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+</h:head>
+
+<h:body >
+	<div id="main_view">
+		<div id="create_task_form">
+			<p:messages showDetail="true" autoUpdate="true" closable="true" globalOnly="true" />
+			<h:form>
+			<p:outputLabel for="taskName" value="Task Name" />
+				<br />
+				<p:inputText id="taskName" styleClass="middle" value="#{CreateTaskMB.taskName}" required="true" requiredMessage="Required field" size="40" />
+				<br />
+				<p:outputLabel for="status" value="Status" />
+				<br />
+				<p:selectOneMenu id="status" value="#{createTaskMB.status}" style="width:200px" />
+                <f:selectItems value="#{createTaskMB.status}" /> <!--needs to be completed -->
+                <br />
+                <p:outputLabel for="assignee" value="Assignee" />
+				<br />
+				<p:selectOneMenu id="assignee" value="#{createTaskMB.assignee}" style="width:200px" />
+                <f:selectItems value="#{createTaskMB.assignee}" /> <!--needs to be completed -->
+                <br />
+                <p:outputLabel for="dueDate" value="Due Date" />
+                <br />
+     			<p:calendar id="dueDate" value="#{CreateTaskMB.dueDate}" />
+          		<h:outputText value="#{CreateTaskMB.dueDate}">
+               	<f:convertDateTime pattern="dd/MM/yyyy" />
+          		</h:outputText>
+          		<br />
+          		<p:outputLabel for="description" value="Description" />
+          		<br />
+          		<p:inputTextarea id ="description" rows="10" cols="80" />
+          		<br />
+			</h:form>
+			<h:form>
+				<p:commandButton value="Create Task" action="#{CreateTaskMB.create}"></p:commandButton>
+				<br />
+				<p:commandButton value="Log out" action="#{loginMB.logout}"></p:commandButton>
+			</h:form>
+		</div>
+	</div>
+</h:body>
+</html>
