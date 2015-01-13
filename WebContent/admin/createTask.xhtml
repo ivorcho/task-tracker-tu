@@ -16,9 +16,6 @@
 		<div id="create_task_form">
 			<p:messages showDetail="true" autoUpdate="true" closable="true" globalOnly="true" />
 			<h:form>
-				<p:commandButton value="Log out" action="#{loginMB.logout}"></p:commandButton>
-			</h:form>
-			<h:form>
 			<p:outputLabel for="taskName" value="Task Name" />
 				<br />
 				<p:inputText id="taskName" styleClass="middle" value="#{CreateTaskMB.taskName}" required="true" requiredMessage="Required field" size="40" />
@@ -47,6 +44,8 @@
 			</h:form>
 			<h:form>
 				<p:commandButton value="Create Task" action="#{CreateTaskMB.create}"></p:commandButton>
+				<br />
+				<p:commandButton value="Log out" action="#{loginMB.logout}"></p:commandButton>
 			</h:form>
 		</div>
 	</div>
