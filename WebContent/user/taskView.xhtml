@@ -14,34 +14,34 @@
 <h:body >
 	<div id="main_view">
 		<div id="task_viewer">
-			<h:outputText value="#{Task.getName()}"/>
+			<h:outputText value=""/>
 			
-			<h:outputText value="<!-- tastStatus.statusState -->" />
+			<h:outputText value="" />
 			
-			<h:outputText value="<!-- taskAssignment.assigmnent -->" />
+			<h:outputText value="" />
 			
-			<h:outputText value="<!-- taskDueDate.date -->" />
+			<h:outputText value="" />
 			<br/>
 			
 			<h:outputText value="Descrpiption"/>
 			<br/>
 			
-			<h:outputText value="<!-- taskDescription.description -->"/>
+			<h:outputText value=""/>
 			<br/>
 			
-			<h:outputText value="<!-- taskDescription.description -->"/>
+			<h:outputText value=""/>
 			<br/>
 			
 			<h:outputText value="Comments: "/>
 			<br/>
 			
-			<h:outputText value="<!-- taskComments.comments --> "/>
+			<h:outputText value=""/>
 			<br/>
 			
-			<h:inputTextarea value="<!-- inputComment.comment -->"/>
+			<h:inputTextarea value=""/>
 			<br/>
 			
-			<p:commandButton value="Submit" id="ajax" update="growl" actionListener="#{TaskMb.buttonAction}" styleClass="ui-priority-primary" />
+			<p:commandButton value="Submit" actionListener="#{TaskMb.buttonAction}" />
 			
 		</div><!-- taks viewer  --> 
 	</div>

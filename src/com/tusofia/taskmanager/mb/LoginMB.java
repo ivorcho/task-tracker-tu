@@ -11,7 +11,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import com.tusofia.taskmanager.beans.UserBean;
-import com.tusofia.taskmanager.entity.User.AccountType;
 
 @ManagedBean
 @RequestScoped
