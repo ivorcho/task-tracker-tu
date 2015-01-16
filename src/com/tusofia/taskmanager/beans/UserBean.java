@@ -31,7 +31,7 @@ public class UserBean {
 	}
 
 	private boolean isUsernameUniqie(User user) {
-		Query q = em.createNamedQuery("findUserByName").setParameter(
+		Query q = em.createNamedQuery("findUserByUsername").setParameter(
 				"username", user.getUsername());
 		if (q.getResultList().isEmpty()) {
 			return true;

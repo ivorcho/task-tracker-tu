@@ -1,21 +1,26 @@
 package com.tusofia.taskmanager.mb;
 
+import java.io.Serializable;
+
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.persistence.PersistenceException;
 
 import com.tusofia.taskmanager.beans.UserBean;
 import com.tusofia.taskmanager.entity.User;
 import com.tusofia.taskmanager.entity.User.AccountType;
 
 @ManagedBean
-@RequestScoped
-public class CreateUserMB {
+@ViewScoped
+public class CreateUserMB implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private String username;
 	private String password;
 	private String email;

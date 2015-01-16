@@ -15,9 +15,9 @@
 <h:body>
 	<div id="main_view">
 		<h:form>
-			<p:dataTable var="task" value="#{taskMB.tasks}">
+			<p:dataTable var="task" value="#{homeMB.tasks}">
 				<p:column headerText="Task name">
-					<h:commandLink  action="#{taskMB.selectTask(task)}">
+					<h:commandLink  action="#{homeMB.selectTask(task)}">
 						<h:outputText value="#{task.name}" />
 					</h:commandLink>
 				</p:column>
