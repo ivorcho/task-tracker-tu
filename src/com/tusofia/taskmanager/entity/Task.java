@@ -11,7 +11,8 @@ import javax.persistence.*;
  *
  */
 @Entity
-
+@NamedQueries({
+	@NamedQuery(name = "getAllTasks", query = "SELECT t FROM Task t")})
 public class Task implements Serializable {
 
 	
@@ -19,12 +20,26 @@ public class Task implements Serializable {
 	private String name;
 	private String description;
 	private Date dueDate;
+	private TaskStatus status;
 	private User user;
 	private static final long serialVersionUID = 1L;
 
 	public Task() {
 		super();
 	}   
+	
+	
+	public Task(String name, String description, Date dueDate,
+			TaskStatus status, User user) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.dueDate = dueDate;
+		this.status = status;
+		this.user = user;
+	}
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
@@ -61,6 +76,18 @@ public class Task implements Serializable {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	@Enumerated(EnumType.STRING)
+	public TaskStatus getStatus() {
+		return status;
+	}
+	public void setStatus(TaskStatus status) {
+		this.status = status;
+	}
+
+	public static enum TaskStatus {
+		Open, InProgress, Completed
 	}
    
 }

@@ -16,37 +16,38 @@
 		<div id="create_task_form">
 			<p:messages showDetail="true" autoUpdate="true" closable="true" globalOnly="true" />
 			<h:form>
-				<p:commandButton value="Log out" action="#{loginMB.logout}"></p:commandButton>
-			</h:form>
-			<h:form>
 			<p:outputLabel for="taskName" value="Task Name" />
 				<br />
-				<p:inputText id="taskName" styleClass="middle" value="#{CreateTaskMB.taskName}" required="true" requiredMessage="Required field" size="40" />
+				<p:inputText id="taskName" styleClass="middle" value="#{taskMB.taskName}" required="true" requiredMessage="Required field" size="40" />
+				<p:message for="taskName" />
 				<br />
 				<p:outputLabel for="status" value="Status" />
 				<br />
-				<p:selectOneMenu id="status" value="#{createTaskMB.status}" style="width:200px" />
-                <f:selectItems value="#{createTaskMB.status}" /> <!--needs to be completed -->
+				<p:selectOneMenu id="status" value="#{taskMB.status}" style="width:200px" >
+                <f:selectItems value="#{taskMB.taskStatuses}" /> <!--needs to be completed -->
+                </p:selectOneMenu>
                 <br />
                 <p:outputLabel for="assignee" value="Assignee" />
 				<br />
-				<p:selectOneMenu id="assignee" value="#{createTaskMB.assignee}" style="width:200px" />
-                <f:selectItems value="#{createTaskMB.assignee}" /> <!--needs to be completed -->
+				<p:selectOneMenu id="assignee" value="#{taskMB.assignee}" style="width:200px" >
+				<f:selectItem itemLabel="No one" itemValue="" />
+                <f:selectItems value="#{taskMB.users}" var="user" itemValue="#{user.username}" itemLabel="#{user.username}"/>
+                </p:selectOneMenu>
                 <br />
                 <p:outputLabel for="dueDate" value="Due Date" />
                 <br />
-     			<p:calendar id="dueDate" value="#{CreateTaskMB.dueDate}" />
-          		<h:outputText value="#{CreateTaskMB.dueDate}">
-               	<f:convertDateTime pattern="dd/MM/yyyy" />
-          		</h:outputText>
+     			<p:calendar id="dueDate" value="#{taskMB.dueDate}" mindate="#{taskMB.currentDate}" pattern="dd/MM/yyyy" validator="dueDateValidator"/>
+     			<p:message for="dueDate" />
           		<br />
           		<p:outputLabel for="description" value="Description" />
           		<br />
-          		<p:inputTextarea id ="description" rows="10" cols="80" />
+          		<p:inputTextarea id ="description" value="#{taskMB.description}" rows="10" cols="80" />
           		<br />
+				<p:commandButton value="Create Task" action="#{taskMB.createTask()}" update="@form"></p:commandButton>
 			</h:form>
 			<h:form>
-				<p:commandButton value="Create Task" action="#{CreateTaskMB.create}"></p:commandButton>
+				<br />
+				<p:commandButton value="Log out" action="#{loginMB.logout}"></p:commandButton>
 			</h:form>
 		</div>
 	</div>
