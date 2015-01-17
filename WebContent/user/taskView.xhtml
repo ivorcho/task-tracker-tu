@@ -14,17 +14,20 @@
 <h:body >
 	<div id="main_view">
 		<div id="task_viewer">
-			<h:outputText value="#{editTaskMB.managedTask.name}"/>
-			
-			<h:outputText value="" />
-			
-			<h:outputText value="" />
-			
-			<h:outputText value="" />
+			<p:outputLabel value="Task name: #{editTaskMB.managedTask.name}"/>
 			<br/>
-			
-			<h:outputText value="Descrpiption"/>
 			<br/>
+			<p:outputLabel value="Status: #{editTaskMB.managedTask.status}"/>
+			<br/>
+			<br/>
+			<p:outputLabel value="Assignee: #{editTaskMB.managedTask.user.fullName}" />
+			<br/>
+			<br/>
+			<p:outputLabel value="Due date: #{editTaskMB.managedTask.dueDate}" />
+			<br/>
+			<br/>
+			<h:outputLabel value="Description:"/>
+			<h:outputLabel value ="#{editTaskMB.managedTask.description}" />
 			
 			<h:outputText value=""/>
 			<br/>

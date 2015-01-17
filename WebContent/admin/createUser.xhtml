@@ -24,8 +24,13 @@
 				<br />
 				<p:outputLabel for="password" value="Password" />
 				<br />
-				<p:password id="password" styleClass="middle" value="#{createUserMB.password}" required="true" requiredMessage="Required field" />
+				<p:password id="password" styleClass="middle" value="#{createUserMB.password}"  match = "repeatPassword" required="true" requiredMessage="Required field" />
 				<p:message for="password" />
+				<br />
+				<p:outputLabel for="repeatPassword" value="Repeat Password" />
+				<br />
+				<p:password id="repeatPassword" styleClass="middle" value="#{createUserMB.password}" required="true" requiredMessage="Required field" />
+				<p:message for="repeatPassword" />
 				<br />
 				<p:outputLabel for="fullName" value="Full Name" />
 				<br />

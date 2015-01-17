@@ -31,12 +31,20 @@ public class CreateUserMB implements Serializable {
 	private UserBean userBean;
 	
 	public void createUser(){
+		boolean userCreatedSuccesffully = true;
+		String message;
+		FacesContext facesContext = FacesContext.getCurrentInstance();
 		try {
-			userBean.saveUser(new User(username, password, email, fullName, accountType));			
+			userBean.saveUser(new User(username, password, email, fullName, accountType));
 		} catch (Exception e) {
-			String message = e.getMessage();
-			FacesContext facesContext = FacesContext.getCurrentInstance();
+			message = e.getMessage();
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, ""));
+			userCreatedSuccesffully = false;
+		} finally{
+			if(userCreatedSuccesffully){
+				message = "User " + username + " created!";
+				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, ""));
+			}
 		}
 	}
 	

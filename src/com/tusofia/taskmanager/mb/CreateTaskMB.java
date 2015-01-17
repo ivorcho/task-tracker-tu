@@ -6,8 +6,10 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import com.tusofia.taskmanager.beans.TaskBean;
 import com.tusofia.taskmanager.beans.UserBean;
@@ -44,18 +46,30 @@ public class CreateTaskMB implements Serializable {
 	}
 
 	public void createTask() {
-		User user;
-		if(assignee.isEmpty()){
-			user = null;
-		} else {
-			user = userBean.findUserByUsername(assignee);			
+		boolean taskCreatedSuccessfully = true;
+		try {
+			User user;
+			if(assignee.isEmpty()){
+				user = null;
+			} else {
+				user = userBean.findUserByUsername(assignee);			
+			}
+			java.sql.Date sqlDate = null;
+			if(dueDate != null){
+				sqlDate = new java.sql.Date(dueDate.getTime());			
+			}
+			Task newTask = new Task(taskName, description, sqlDate, status, user);
+			taskBean.saveTask(newTask);
+		} catch (Exception e) {
+			String message = e.getMessage();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed to create task", message));
+			taskCreatedSuccessfully = false;
+		} finally{
+			if(taskCreatedSuccessfully){
+		String message = "Task " + taskName + " created!";
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
+			}
 		}
-		java.sql.Date sqlDate = null;
-		if(dueDate != null){
-			sqlDate = new java.sql.Date(dueDate.getTime());			
-		}
-		Task newTask = new Task(taskName, description, sqlDate, status, user);
-		taskBean.saveTask(newTask);
 	}
 
 	public Date getDueDate() {
