@@ -14,6 +14,7 @@
 
 <h:body>
 	<div id="main_view">
+	<ui:include src="../toolbar.xhtml"></ui:include>
 		<h:form>
 			<p:dataTable var="task" value="#{homeMB.tasks}">
 				<p:column headerText="Task name">

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+	<title><h:outputText value="Error!" /></title>
+	<h:outputStylesheet name="error.css" library="css" />
+</h:head>
+
+<h:body >
+	<h:form>    
+    <p:growl id="messages" showDetail="true" />
+ 
+    <p:toolbar>
+        <f:facet name="left">
+				<p:link outcome="home" value="Task Tracker" style = "font-family: moonhouse; font-size: 1.86em;" />
+				
+        </f:facet>
+ 
+        <f:facet name="right">
+            <p:commandButton value="Log out" action="#{loginMB.logout}"></p:commandButton>
+        </f:facet>
+ 
+    </p:toolbar>
+</h:form>
+</h:body>
+</html>
+
+

@@ -1,3 +1,7 @@
+@font-face {
+    font-family: moonhouse;
+    src: url("../resources/fonts/moonhouse.ttf");
+}
 
 body{
 	background-image: url("../resources/images/b.jpg");
