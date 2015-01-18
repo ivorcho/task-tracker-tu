@@ -1,0 +1,18 @@
+
+body{
+	background-image: url("../resources/images/b.jpg");
+}
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 40%;
+
+}
+
+.Text{
+	background-color: #;
+	position: fixed;
+	top: 30%;
+	left: 20%;
+}

@@ -7,17 +7,19 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
 	<title><h:outputText value="Login" /></title>
-	
-	<h:outputStylesheet name="style.css" library="css" />
+	<h:outputStylesheet name="styles.css" library="css" />
 	<h:outputScript library="primefaces" name="jquery/jquery.js" />
 </h:head>
 
-<h:body >
+<h:body>
 	<div id="main_view">
 		<div id="login_form">
 			<p:messages showDetail="true" autoUpdate="true" closable="true" globalOnly="true" />
-
 			<h:form>
+			<div class="Text">
+			<p:graphicImage value="resources/images/tasktracker.png" />
+			</div>
+			<div class="centered">
 				<p:outputLabel for="username" value="Username" />
 				<br />
 				<p:inputText id="username" styleClass="middle" value="#{loginMB.username}" required="true" requiredMessage="Required field" />
@@ -29,8 +31,10 @@
 				<p:message for="password" />
 				<br />
 				<p:commandButton  value="Log in"  styleClass="orange_btn" action="#{loginMB.login}" ajax="false" update="@form" />
+			</div>
 			</h:form>
 		</div><!-- login_form  --> 
 	</div>
+
 </h:body>
 </html>
