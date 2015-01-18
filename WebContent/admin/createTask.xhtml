@@ -13,10 +13,12 @@
 
 <h:body >
 	<div id="main_view">
+	<ui:include src="../toolbar.xhtml"></ui:include>
 		<div id="create_task_form">
 			<p:messages showDetail="true" autoUpdate="true" closable="true" globalOnly="true" />
 			
 			<h:form>
+			<br />
 			<p:outputLabel for="taskName" value="Task Name" />
 				<br />
 				<p:inputText id="taskName" styleClass="middle" value="#{createTaskMB.taskName}" required="true" requiredMessage="Required field" size="40" />
@@ -48,7 +50,6 @@
 			</h:form>
 			<h:form>
 				<br />
-				<p:commandButton value="Log out" action="#{loginMB.logout}"></p:commandButton>
 			</h:form>
 		</div>
 	</div>

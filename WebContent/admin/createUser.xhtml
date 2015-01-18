@@ -13,10 +13,12 @@
 
 <h:body >
 	<div id="main_view">
+	<ui:include src="../toolbar.xhtml"></ui:include>
 		<div id="create_user_form">
 			<p:messages showDetail="true" autoUpdate="true" closable="true" globalOnly="true" />
 
 			<h:form>
+				<br />
 				<p:outputLabel for="username" value="Username" />
 				<br />
 				<p:inputText id="username" styleClass="middle" value="#{createUserMB.username}" required="true" requiredMessage="Required field" />
@@ -56,7 +58,6 @@
 				<br />
 			</h:form>
 			<h:form>
-				<p:commandButton value="Log out" action="#{loginMB.logout}"></p:commandButton>
 			</h:form>
 		</div><!-- login_form  --> 
 	</div>
