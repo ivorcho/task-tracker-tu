@@ -67,7 +67,7 @@ public class CreateTaskMB implements Serializable {
 		} finally{
 			if(taskCreatedSuccessfully){
 		String message = "Task " + taskName + " created!";
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, " "));
 			}
 		}
 	}

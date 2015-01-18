@@ -30,7 +30,8 @@ public class LoginMB {
 		try {
 			request.login(this.username, this.password);
 		} catch (ServletException e) {
-			context.addMessage(null, new FacesMessage("Login failed."));
+			//context.addMessage(null, new FacesMessage("Login failed."));
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login failed!", "Check your username and password"));
 			return "";
 		}
 		return "user/home?faces-redirect=true";
