@@ -19,6 +19,11 @@ public class TaskBean {
 		em.persist(task);
 	}
 	
+	public Task getTaskById(int id){
+		Query q = em.createNamedQuery("getTaskById", Task.class).setParameter("id", id);
+		return (Task) q.getSingleResult();
+	}
+	
 	public List<Task> getAllTasks(){
 		Query q = em.createNamedQuery("getAllTasks", Task.class);
 		return q.getResultList();

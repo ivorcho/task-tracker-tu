@@ -1,13 +1,18 @@
 package com.tusofia.taskmanager.util;
 
+import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.tusofia.taskmanager.beans.UserBean;
 import com.tusofia.taskmanager.entity.User;
 
 public class JSFUtil {
+	
+	@EJB
+	private UserBean userBean;
 
 	public static FacesContext getFacesContext() {
 		return FacesContext.getCurrentInstance();
@@ -51,6 +56,10 @@ public class JSFUtil {
 		} else {
 			return null;
 		}
+	}
+	
+	public static String getLoggedInUsername() {
+		return getFacesContext().getExternalContext().getRemoteUser();
 	}
 
 	public static void setLoggedInUser(User user) {

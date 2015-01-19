@@ -52,7 +52,7 @@ public class CreateTaskMB implements Serializable {
 			if(assignee.isEmpty()){
 				user = null;
 			} else {
-				user = userBean.findUserByUsername(assignee);			
+				user = userBean.getUserByUsername(assignee);			
 			}
 			java.sql.Date sqlDate = null;
 			if(dueDate != null){

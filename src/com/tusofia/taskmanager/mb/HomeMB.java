@@ -33,7 +33,7 @@ public class HomeMB implements Serializable{
 	}
 	
 	public String selectTask(Task managedTask) {
-		JSFUtil.setSessionMapValue(Constants.SESSION_ATTRIBUTE_SELECTED_TASK, managedTask);
+		JSFUtil.setSessionMapValue(Constants.SESSION_ATTRIBUTE_SELECTED_TASK, managedTask.getId());
 		return "taskView?faces-redirect=true";
 	}
 	

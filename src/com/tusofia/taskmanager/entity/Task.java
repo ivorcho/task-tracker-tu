@@ -3,6 +3,7 @@ package com.tusofia.taskmanager.entity;
 import java.io.Serializable;
 import java.lang.String;
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -12,7 +13,8 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQueries({
-	@NamedQuery(name = "getAllTasks", query = "SELECT t FROM Task t")})
+	@NamedQuery(name = "getAllTasks", query = "SELECT t FROM Task t"),
+	@NamedQuery(name = "getTaskById", query = "SELECT t FROM Task t WHERE t.id=:id")})
 public class Task implements Serializable {
 
 	
@@ -22,6 +24,7 @@ public class Task implements Serializable {
 	private Date dueDate;
 	private TaskStatus status;
 	private User user;
+	private List<Comment> comments;
 	private static final long serialVersionUID = 1L;
 
 	public Task() {
@@ -84,6 +87,16 @@ public class Task implements Serializable {
 	}
 	public void setStatus(TaskStatus status) {
 		this.status = status;
+	}
+
+	@OneToMany(mappedBy="task", fetch=FetchType.EAGER)
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
 	public static enum TaskStatus {

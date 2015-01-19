@@ -50,7 +50,7 @@ public class UserBean {
 		}
 	}
 
-	public User findUserByUsername(String username) {
+	public User getUserByUsername(String username) {
 		Query q = em.createNamedQuery("findUserByUsername").setParameter("username", username);
 		User user = (User) q.getSingleResult();
 		return user;

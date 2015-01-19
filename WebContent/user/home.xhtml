@@ -16,7 +16,7 @@
 	<div id="main_view">
 	<ui:include src="../toolbar.xhtml"></ui:include>
 		<h:form>
-			<p:dataTable var="task" value="#{homeMB.tasks}">
+			<p:dataTable var="task" value="#{homeMB.tasks}" paginator="true" rows="15">
 				<p:column headerText="Task name">
 					<h:commandLink  action="#{homeMB.selectTask(task)}">
 						<h:outputText value="#{task.name}" />
@@ -39,7 +39,7 @@
 		<BR />
 		<p:button outcome="../admin/createUser.xhtml" value="Create user"
 			rendered="#{p:ifGranted('ADMIN')}" />
-		<BR />
+		
 		<p:button outcome="../admin/createTask.xhtml" value="Create task"
 			rendered="#{p:ifGranted('ADMIN')}" />
 		<BR />

@@ -11,45 +11,45 @@
 	<h:outputScript library="primefaces" name="jquery/jquery.js" />
 </h:head>
 
-<h:body >
+<h:body>
 	<div id="main_view">
-	<ui:include src="../toolbar.xhtml"></ui:include>
+		<ui:include src="../toolbar.xhtml"></ui:include>
 		<div id="task_viewer">
-			<br/>
-			<p:outputLabel value="Task name: #{editTaskMB.managedTask.name}"/>
-			<br/>
-			<br/>
-			<p:outputLabel value="Status: #{editTaskMB.managedTask.status}"/>
-			<br/>
-			<br/>
-			<p:outputLabel value="Assignee: #{editTaskMB.managedTask.user.fullName}" />
-			<br/>
-			<br/>
+			<br />
+			<p:outputLabel value="Task name: #{editTaskMB.managedTask.name}" />
+			<br /> <br />
+			<p:outputLabel value="Status: #{editTaskMB.managedTask.status}" />
+			<br /> <br />
+			<p:outputLabel
+				value="Assignee: #{editTaskMB.managedTask.user.fullName}" />
+			<br /> <br />
 			<p:outputLabel value="Due date: #{editTaskMB.managedTask.dueDate}" />
-			<br/>
-			<br/>
-			<p:outputLabel value="Description:"/>
-			<br/>
-			<p:outputLabel value ="#{editTaskMB.managedTask.description}" />
-			
-			<h:outputText value=""/>
-			<br/>
-			
-			<h:outputText value=""/>
-			<br/>
-			
-			<h:outputText value="Comments: "/>
-			<br/>
-			
-			<h:outputText value=""/>
-			<br/>
-			
-			<h:inputTextarea value=""/>
-			<br/>
-			
-			<p:commandButton value="Submit" actionListener="#{TaskMb.buttonAction}" />
-			
-		</div><!-- taks viewer  --> 
+			<br /> <br />
+			<p:outputLabel value="Description:" />
+			<br />
+			<p:outputLabel value="#{editTaskMB.managedTask.description}" />
+
+			<h:form>
+				<p:dataScroller value="#{editTaskMB.comments}" var="comment">
+					<f:facet name="header">Comments</f:facet>
+					<br />
+					<h:outputText value="#{comment.content}" />
+					<br />
+					<h:outputText value="Author: #{comment.author.username}" />
+					<h:outputText value="#{comment.date}">
+						<f:convertDateTime pattern="HH:mm, MM/dd/yyyy" type="both" />
+					</h:outputText>
+					<br />
+				</p:dataScroller>
+
+				<h:inputTextarea value="#{editTaskMB.commentContent}" />
+				<br />
+
+				<p:commandButton value="Submit" action="#{editTaskMB.saveComment}"
+					update="@form" />
+			</h:form>
+		</div>
+		<!-- taks viewer  -->
 	</div>
 </h:body>
 </html>

@@ -35,6 +35,7 @@ public class User implements Serializable {
 	private String fullName;
 	private AccountType accountType;
 	private List<Task> tasks;
+	private List<Comment> comments;
 	private static final long serialVersionUID = 1L;
 
 	public User() {
@@ -123,6 +124,15 @@ public class User implements Serializable {
 
 	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
+	}
+
+	@OneToMany(mappedBy="author")
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
 	public static enum AccountType {
