@@ -19,6 +19,10 @@ public class TaskBean {
 		em.persist(task);
 	}
 	
+	public Task updateTask(Task task){
+		return em.merge(task);
+	}
+	
 	public Task getTaskById(int id){
 		Query q = em.createNamedQuery("getTaskById", Task.class).setParameter("id", id);
 		return (Task) q.getSingleResult();

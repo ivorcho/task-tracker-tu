@@ -15,41 +15,69 @@
 	<div id="main_view">
 		<ui:include src="../toolbar.xhtml"></ui:include>
 		<div id="task_viewer">
-			<br />
-			<p:outputLabel value="Task name: #{editTaskMB.managedTask.name}" />
-			<br /> <br />
-			<p:outputLabel value="Status: #{editTaskMB.managedTask.status}" />
-			<br /> <br />
-			<p:outputLabel
-				value="Assignee: #{editTaskMB.managedTask.user.fullName}" />
-			<br /> <br />
-			<p:outputLabel value="Due date: #{editTaskMB.managedTask.dueDate}" />
-			<br /> <br />
-			<p:outputLabel value="Description:" />
-			<br />
-			<p:outputLabel value="#{editTaskMB.managedTask.description}" />
-
 			<h:form>
-				<p:dataScroller value="#{editTaskMB.comments}" var="comment">
-					<f:facet name="header">Comments</f:facet>
-					<br />
-					<h:outputText value="#{comment.content}" />
-					<br />
-					<h:outputText value="Author: #{comment.author.username}" />
-					<h:outputText value="#{comment.date}">
-						<f:convertDateTime pattern="HH:mm, MM/dd/yyyy" type="both" />
-					</h:outputText>
-					<br />
-				</p:dataScroller>
-
-				<h:inputTextarea value="#{editTaskMB.commentContent}" />
 				<br />
-
-				<p:commandButton value="Submit" action="#{editTaskMB.saveComment}"
-					update="@form" />
+				<p:outputLabel value="Task name: #{editTaskMB.managedTask.name}" />
+				<br />
+				<br />
+				<p:outputLabel value="Status: " />
+				<p:outputLabel value="#{editTaskMB.managedTask.status}"
+					rendered="#{editTaskMB.isStatusEditable() == false}" />
+				<p:selectOneMenu id="status"
+					value="#{editTaskMB.managedTask.status}" style="width:200px"
+					rendered="#{editTaskMB.isStatusEditable()}">
+					<f:selectItems value="#{editTaskMB.taskStatuses}" />
+				</p:selectOneMenu>
+				<br />
+				<br />
+				<p:outputLabel value="Assignee: " />
+				<p:selectOneMenu id="assignee"
+					value="#{editTaskMB.managedTask.user.username}" style="width:200px">
+					<f:selectItem itemLabel="No one" itemValue="" />
+					<f:selectItems value="#{editTaskMB.users}" var="user"
+						itemValue="#{user.username}" itemLabel="#{user.username}" />
+				</p:selectOneMenu>
+				<br />
+				<br />
+				<p:outputLabel value="Due date: " />
+				<p:outputLabel value="#{editTaskMB.managedTask.dueDate}"
+					rendered="#{p:ifGranted('USER')}" />
+				<p:calendar id="dueDate" value="#{editTaskMB.managedTask.dueDate}"
+					mindate="#{createTaskMB.currentDate}" pattern="dd/MM/yyyy"
+					validator="dueDateValidator" rendered="#{p:ifGranted('ADMIN')}" />
+				<p:message for="dueDate" />
+				<br />
+				<br />
+				<p:outputLabel value="Description:" />
+				<br />
+				<p:outputLabel value="#{editTaskMB.managedTask.description}" />
+				<br />
+				<br />
 			</h:form>
-		</div>
-		<!-- taks viewer  -->
+			<h:form>
+				<p:commandButton update="@form" actionListener="#{editTaskMB.commitChanges}" value="Save changes" />
+			</h:form>
+		</div><!-- taks viewer  -->
+		<h:form>
+			<p:dataScroller value="#{editTaskMB.comments}" var="comment">
+				<f:facet name="header">Comments</f:facet>
+				<br />
+				<h:outputText value="#{comment.content}" />
+				<br />
+				<h:outputText value="Author: #{comment.author.username}" />
+				<h:outputText value="#{comment.date}">
+					<f:convertDateTime pattern="HH:mm, MM/dd/yyyy" type="both" />
+				</h:outputText>
+				<br />
+			</p:dataScroller>
+
+			<h:inputTextarea value="#{editTaskMB.commentContent}" />
+			<br />
+
+			<p:commandButton value="Submit" action="#{editTaskMB.saveComment()}"
+				update="@form" />
+		</h:form>
+
 	</div>
 </h:body>
 </html>
