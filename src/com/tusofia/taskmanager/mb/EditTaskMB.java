@@ -10,6 +10,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
+import org.primefaces.context.RequestContext;
+
 import com.tusofia.taskmanager.beans.CommentBean;
 import com.tusofia.taskmanager.beans.TaskBean;
 import com.tusofia.taskmanager.beans.UserBean;
@@ -57,6 +59,30 @@ public class EditTaskMB implements Serializable{
 		}
 	}
 	
+	public void commitChangesWhitCheck(){
+		if(assignee.isEmpty()){
+			commitChanges();
+		} else {
+			User selectedAssignee = userBean.getUserByUsername(assignee);
+			if(taskBean.getOpenAndInProgressTasksCount(selectedAssignee) >= 2){
+				RequestContext.getCurrentInstance().execute("PF('confirmDialog').show();");
+			} else {
+				commitChanges();
+			}
+		}
+	}
+	
+	public void commitChanges(){
+		User user;
+		if(assignee.isEmpty()){
+			user = null;
+		} else {
+			user = userBean.getUserByUsername(assignee);			
+		}
+		managedTask.setUser(user);
+		managedTask = taskBean.updateTask(managedTask);
+	}
+	
 	public void saveComment(){
 		Comment comment = new Comment();
 		comment.setAuthor(user);
@@ -67,16 +93,7 @@ public class EditTaskMB implements Serializable{
 		comments.add(comment);
 	}
 	
-	public void commitChanges(ActionEvent actionEvent){
-		User user;
-		if(assignee.isEmpty()){
-			user = null;
-		} else {
-			user = userBean.getUserByUsername(assignee);			
-		}
-		managedTask.setUser(user);
-		managedTask = taskBean.updateTask(managedTask);
-	}
+	
 	public boolean isStatusEditable(){
 		if(managedTask.getUser() == null){
 			return false;

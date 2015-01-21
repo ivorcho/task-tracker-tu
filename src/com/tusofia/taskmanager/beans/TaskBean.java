@@ -8,6 +8,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.tusofia.taskmanager.entity.Task;
+import com.tusofia.taskmanager.entity.Task.TaskStatus;
+import com.tusofia.taskmanager.entity.User;
 
 @Stateless
 public class TaskBean {
@@ -31,5 +33,13 @@ public class TaskBean {
 	public List<Task> getAllTasks(){
 		Query q = em.createNamedQuery("getAllTasks", Task.class);
 		return q.getResultList();
+	}
+	
+	public Long getOpenAndInProgressTasksCount(User user){
+		Query q = em.createQuery("select COUNT(t) from Task t where t.user = :user and (t.status = :openStatus or t.status = :inProgresStatus)");
+		q.setParameter("user", user);
+		q.setParameter("openStatus", TaskStatus.Open);
+		q.setParameter("inProgresStatus", TaskStatus.InProgress);
+		return (Long) q.getSingleResult();
 	}
 }
