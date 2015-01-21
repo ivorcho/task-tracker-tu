@@ -20,7 +20,7 @@
 				<p:link outcome="../user/home" value="Task Tracker" style = "font-family: moonhouse; font-size: 1.86em;" />
         </f:facet>
         <f:facet name="right">
-        	<p:outputLabel value="#{LoginMB.getUsername}" /> <!-- does not work -->
+        	<p:outputLabel id="username" value="#{request.remoteUser}" style="margin-right:20px"/> 
             <p:commandButton value="Log out" action="#{loginMB.logout}"></p:commandButton>
         </f:facet>
  
