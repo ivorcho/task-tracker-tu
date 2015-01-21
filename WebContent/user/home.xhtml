@@ -32,7 +32,9 @@
 				</p:column>
 
 				<p:column headerText="Due date">
-					<h:outputText value="#{task.dueDate}" />
+					<h:outputText value="#{task.dueDate}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
 				</p:column>
 			</p:dataTable>
 		</h:form>

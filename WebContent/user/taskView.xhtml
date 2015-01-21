@@ -32,7 +32,7 @@
 				<br />
 				<p:outputLabel value="Assignee: " />
 				<p:selectOneMenu id="assignee"
-					value="#{editTaskMB.managedTask.user.username}" style="width:200px">
+					value="#{editTaskMB.assignee}" style="width:200px">
 					<f:selectItem itemLabel="No one" itemValue="" />
 					<f:selectItems value="#{editTaskMB.users}" var="user"
 						itemValue="#{user.username}" itemLabel="#{user.username}" />
@@ -40,11 +40,12 @@
 				<br />
 				<br />
 				<p:outputLabel value="Due date: " />
-				<p:outputLabel value="#{editTaskMB.managedTask.dueDate}"
-					rendered="#{p:ifGranted('USER')}" />
+				<p:outputLabel value="#{editTaskMB.managedTask.dueDate}" rendered="#{p:ifGranted('USER')}">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</p:outputLabel>
 				<p:calendar id="dueDate" value="#{editTaskMB.managedTask.dueDate}"
-					mindate="#{createTaskMB.currentDate}" pattern="dd/MM/yyyy"
-					validator="dueDateValidator" rendered="#{p:ifGranted('ADMIN')}" />
+					mindate="#{editTaskMB.currentDate}" pattern="dd/MM/yyyy"
+					 rendered="#{p:ifGranted('ADMIN')}" />
 				<p:message for="dueDate" />
 				<br />
 				<br />
@@ -53,8 +54,6 @@
 				<p:outputLabel value="#{editTaskMB.managedTask.description}" />
 				<br />
 				<br />
-			</h:form>
-			<h:form>
 				<p:commandButton update="@form" actionListener="#{editTaskMB.commitChanges}" value="Save changes" />
 			</h:form>
 		</div><!-- taks viewer  -->

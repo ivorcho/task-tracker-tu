@@ -35,7 +35,10 @@ public class EditTaskMB implements Serializable{
 	private User user;
 	private List<User> users;
 	
+	private String assignee;
+	private Date currentDate = new Date();
 	
+
 	@EJB
 	UserBean userBean;
 	@EJB
@@ -49,6 +52,9 @@ public class EditTaskMB implements Serializable{
 		comments = managedTask.getComments();
 		user = userBean.getUserByUsername(JSFUtil.getLoggedInUsername());
 		users = userBean.getAllUsers();
+		if(managedTask.getUser() != null){
+			assignee = managedTask.getUser().getUsername();
+		}
 	}
 	
 	public void saveComment(){
@@ -62,9 +68,19 @@ public class EditTaskMB implements Serializable{
 	}
 	
 	public void commitChanges(ActionEvent actionEvent){
+		User user;
+		if(assignee.isEmpty()){
+			user = null;
+		} else {
+			user = userBean.getUserByUsername(assignee);			
+		}
+		managedTask.setUser(user);
 		managedTask = taskBean.updateTask(managedTask);
 	}
 	public boolean isStatusEditable(){
+		if(managedTask.getUser() == null){
+			return false;
+		}
 		return user.getUsername().equals(managedTask.getUser().getUsername());
 	}
 	
@@ -102,6 +118,22 @@ public class EditTaskMB implements Serializable{
 
 	public void setUsers(List<User> users) {
 		this.users = users;
+	}
+
+	public Date getCurrentDate() {
+		return currentDate;
+	}
+
+	public void setCurrentDate(Date currentDate) {
+		this.currentDate = currentDate;
+	}
+
+	public String getAssignee() {
+		return assignee;
+	}
+
+	public void setAssignee(String assignee) {
+		this.assignee = assignee;
 	}
 
 }

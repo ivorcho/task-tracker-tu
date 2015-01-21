@@ -2,7 +2,7 @@ package com.tusofia.taskmanager.entity;
 
 import java.io.Serializable;
 import java.lang.String;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;

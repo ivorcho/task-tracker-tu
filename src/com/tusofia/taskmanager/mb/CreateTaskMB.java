@@ -54,11 +54,7 @@ public class CreateTaskMB implements Serializable {
 			} else {
 				user = userBean.getUserByUsername(assignee);			
 			}
-			java.sql.Date sqlDate = null;
-			if(dueDate != null){
-				sqlDate = new java.sql.Date(dueDate.getTime());			
-			}
-			Task newTask = new Task(taskName, description, sqlDate, status, user);
+			Task newTask = new Task(taskName, description, dueDate, status, user);
 			taskBean.saveTask(newTask);
 		} catch (Exception e) {
 			String message = e.getMessage();
