@@ -25,7 +25,7 @@ public class CreateTaskMB implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private Date dueDate;
 	private TaskStatus status;
 	private String assignee;
@@ -49,21 +49,27 @@ public class CreateTaskMB implements Serializable {
 		boolean taskCreatedSuccessfully = true;
 		try {
 			User user;
-			if(assignee.isEmpty()){
+			if (assignee.isEmpty()) {
 				user = null;
 			} else {
-				user = userBean.getUserByUsername(assignee);			
+				user = userBean.getUserByUsername(assignee);
 			}
 			Task newTask = new Task(taskName, description, dueDate, status, user);
 			taskBean.saveTask(newTask);
 		} catch (Exception e) {
 			String message = e.getMessage();
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed to create task", message));
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Failed to create task", message));
 			taskCreatedSuccessfully = false;
-		} finally{
-			if(taskCreatedSuccessfully){
-		String message = "Task " + taskName + " created!";
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, " "));
+		} finally {
+			if (taskCreatedSuccessfully) {
+				String message = "Task " + taskName + " created!";
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_INFO, message,
+								" "));
 			}
 		}
 	}

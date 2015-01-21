@@ -1,7 +1,5 @@
 package com.tusofia.taskmanager.mb;
 
-import java.util.logging.Logger;
-
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -15,7 +13,6 @@ import com.tusofia.taskmanager.beans.UserBean;
 @ManagedBean
 @RequestScoped
 public class LoginMB {
-	private static final Logger log = Logger.getLogger(LoginMB.class.getName());
 
 	private String username;
 	private String password;
@@ -30,22 +27,10 @@ public class LoginMB {
 		try {
 			request.login(this.username, this.password);
 		} catch (ServletException e) {
-			//context.addMessage(null, new FacesMessage("Login failed."));
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login failed!", "Check your username and password"));
 			return "";
 		}
 		return "user/home?faces-redirect=true";
-//		if (request.isUserInRole(AccountType.ADMIN.toString())) {
-//			return "admin/createUser?faces-redirect=true";
-//		} else if (request.isUserInRole(AccountType.USER.toString())) {
-//			return "user/home?faces-redirect=true";
-//		} else {
-//			return "";
-//		}
-//		User user = new User(username, password);
-//		user.setAccountType(AccountType.ADMIN);
-//		user.setEmail("asd@asd.asd");
-//		userBean.saveUser(user);
 	}
 
 	public String logout() {

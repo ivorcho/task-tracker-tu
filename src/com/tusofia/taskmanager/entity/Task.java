@@ -31,7 +31,6 @@ public class Task implements Serializable {
 		super();
 	}   
 	
-	
 	public Task(String name, String description, Date dueDate,
 			TaskStatus status, User user) {
 		super();
