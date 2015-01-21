@@ -58,6 +58,8 @@ public class Task implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}   
+	
+	@Lob
 	public String getDescription() {
 		return this.description;
 	}

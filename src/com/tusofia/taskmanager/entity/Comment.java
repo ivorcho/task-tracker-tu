@@ -52,7 +52,8 @@ public class Comment implements Serializable {
 
 	public void setDate(Date date) {
 		this.date = date;
-	}   
+	}  
+	@Lob
 	public String getContent() {
 		return this.content;
 	}
