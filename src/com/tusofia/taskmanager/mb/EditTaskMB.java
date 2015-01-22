@@ -79,13 +79,15 @@ public class EditTaskMB implements Serializable{
 	}
 	
 	public void saveComment(){
-		Comment comment = new Comment();
-		comment.setAuthor(user);
-		comment.setContent(commentContent);
-		comment.setTask(managedTask);
-		comment.setDate(new Date());
-		commentBean.saveComment(comment);
-		comments.add(comment);
+		if(!commentContent.isEmpty()){
+			Comment comment = new Comment();
+			comment.setAuthor(user);
+			comment.setContent(commentContent);
+			comment.setTask(managedTask);
+			comment.setDate(new Date());
+			commentBean.saveComment(comment);
+			comments.add(comment);			
+		}
 	}
 	
 	
