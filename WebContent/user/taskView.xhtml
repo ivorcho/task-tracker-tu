@@ -17,10 +17,11 @@
 		<div id="task_viewer">
 			<h:form>
 				<br />
-				<p:outputLabel value="Task name: #{editTaskMB.managedTask.name}" />
-				<br />
-				<br />
-				<p:outputLabel value="Status: " />
+				<div class="name">
+					<p:outputLabel value="#{editTaskMB.managedTask.name}" /><br />
+				</div><br /><br />
+				<div class="options">
+				<p:outputLabel  value="Status: " style="margin-right:10px;" />;
 				<p:outputLabel value="#{editTaskMB.managedTask.status}"
 					rendered="#{editTaskMB.isStatusEditable() == false}" />
 				<p:selectOneMenu id="status"
@@ -55,7 +56,8 @@
 				<p:outputLabel value="#{editTaskMB.managedTask.description}" />
 				<br />
 				<br />
-				<p:commandButton update="@form" action="#{editTaskMB.commitChangesWhitCheck()}" value="Save changes" />
+				</div>
+				<p:commandButton update="@form" action="#{editTaskMB.commitChangesWhitCheck()}" value="Save changes" /><br />
 
 				<p:confirmDialog widgetVar="confirmDialog" severity="alert" showEffect="fade" hideEffect="explode" header="Confirmation" message="The selected assignee is working on too many tasks. Are you sure you want to assign this task to him?" >
 					<p:commandButton value="Yes" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{editTaskMB.commitChanges()}" oncomplete="PF('confirmDialog').hide();" update="@form"/>
@@ -65,22 +67,28 @@
 		</div>
 		<!-- taks viewer  -->
 		<h:form>
+		<div class="commentField">
 			<p:dataScroller value="#{editTaskMB.comments}" var="comment" style="width:50%">
 				<f:facet name="header">Comments</f:facet>
-				<br />
+				<div class="comments">
 				<h:outputText value="#{comment.content}" />
 				<br />
-				<h:outputText value="Author: #{comment.author.username}" />
-				<h:outputText value="#{comment.date}">
+				<div style="width: 475px; border-bottom: 1px solid black; border-color: gray; padding-top:10px;"></div>
+				<h:outputText value="Author: #{comment.author.username}" style="font-weight:bold; font-size: 12px; border-bottom: 3px;" />
+				<h:outputText value="#{comment.date}" style="font-size:12px; margin-left:300px;">
+				
 					<f:convertDateTime pattern="HH:mm, MM/dd/yyyy" type="both" />
 				</h:outputText>
+				</div>
 				<br />
 			</p:dataScroller>
-			<p:inputTextarea id ="description" value="#{editTaskMB.commentContent}" rows="10" cols="80" />
+			<br />
+			<p:inputTextarea id ="description" value="#{editTaskMB.commentContent}" rows="10" cols="47" />
 			<br />
 
 			<p:commandButton value="Submit" action="#{editTaskMB.saveComment()}"
 				update="@form" />
+		</div>
 		</h:form>
 
 	</div>
