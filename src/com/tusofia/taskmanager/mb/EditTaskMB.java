@@ -62,24 +62,27 @@ public class EditTaskMB implements Serializable {
 	}
 
 	public void commitChangesWhitCheck() {
-		try {
-			if (assignee.isEmpty()) {
-				selectedAssignee = null;
+		if (assignee.isEmpty()) {
+			selectedAssignee = null;
+			commitChanges();
+		} else {
+			selectedAssignee = userBean.getUserByUsername(assignee);
+			if (taskBean.getOpenAndInProgressTasksCount(selectedAssignee) >= 2) {
+				RequestContext.getCurrentInstance().execute(
+						"PF('confirmDialog').show();");
+			} else {
 				commitChanges();
-				String message = "Changes saved successfully";
-				FacesContext.getCurrentInstance().addMessage(
-						null,
-						new FacesMessage(FacesMessage.SEVERITY_INFO, message,
-								" "));
-				} else {
-					selectedAssignee = userBean.getUserByUsername(assignee);
-					if (taskBean.getOpenAndInProgressTasksCount(selectedAssignee) >= 2) {
-						RequestContext.getCurrentInstance().execute(
-								"PF('confirmDialog').show();");
-					} else {
-						commitChanges();
-					}
-				}
+			}
+		}
+	}
+
+	public void commitChanges() {
+		try {
+			managedTask.setUser(selectedAssignee);
+			managedTask = taskBean.updateTask(managedTask);
+			String message = "Changes saved successfully";
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, message, " "));
 		} catch (Exception e) {
 			String message = e.getMessage();
 			FacesContext.getCurrentInstance().addMessage(
@@ -89,20 +92,15 @@ public class EditTaskMB implements Serializable {
 		}
 	}
 
-	public void commitChanges() {
-		managedTask.setUser(selectedAssignee);
-		managedTask = taskBean.updateTask(managedTask);
-	}
-	
-	public void saveComment(){
-		if(!commentContent.isEmpty()){
+	public void saveComment() {
+		if (!commentContent.isEmpty()) {
 			Comment comment = new Comment();
 			comment.setAuthor(user);
 			comment.setContent(commentContent);
 			comment.setTask(managedTask);
 			comment.setDate(new Date());
 			commentBean.saveComment(comment);
-			comments.add(comment);	
+			comments.add(comment);
 			commentContent = null;
 		}
 
