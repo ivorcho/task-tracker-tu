@@ -15,13 +15,14 @@
 	<div id="main_view">
 		<ui:include src="../toolbar.xhtml"></ui:include>
 		<div id="task_viewer">
+		<p:messages showDetail="true" autoUpdate="true" closable="true" globalOnly="true" />
 			<h:form>
 				<br />
 				<div class="name">
 					<p:outputLabel value="#{editTaskMB.managedTask.name}" /><br />
 				</div><br /><br />
 				<div class="options">
-				<p:outputLabel  value="Status: " style="margin-right:10px;" />;
+				<p:outputLabel  value="Status: " style="margin-right:10px;" />
 				<p:outputLabel value="#{editTaskMB.managedTask.status}"
 					rendered="#{editTaskMB.isStatusEditable() == false}" />
 				<p:selectOneMenu id="status"
