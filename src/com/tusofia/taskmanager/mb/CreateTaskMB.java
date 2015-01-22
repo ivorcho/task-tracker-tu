@@ -48,36 +48,31 @@ public class CreateTaskMB implements Serializable {
 	}
 
 	public void createTask() {
-		boolean taskCreatedSuccessfully = true;
 		try {
-			Task newTask = new Task(taskName, description, dueDate, status, selectedAssignee);
+			Task newTask = new Task(taskName, description, dueDate, status,
+					selectedAssignee);
 			taskBean.saveTask(newTask);
+			String message = "Task " + taskName + " created!";
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, message, " "));
 		} catch (Exception e) {
 			String message = e.getMessage();
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR,
 							"Failed to create task", message));
-			taskCreatedSuccessfully = false;
-		} finally {
-			if (taskCreatedSuccessfully) {
-				String message = "Task " + taskName + " created!";
-				FacesContext.getCurrentInstance().addMessage(
-						null,
-						new FacesMessage(FacesMessage.SEVERITY_INFO, message,
-								" "));
-			}
 		}
 	}
-	
-	public void createTaskWithCheck(){
-		if(assignee.isEmpty()){
+
+	public void createTaskWithCheck() {
+		if (assignee.isEmpty()) {
 			selectedAssignee = null;
 			createTask();
 		} else {
 			selectedAssignee = userBean.getUserByUsername(assignee);
-			if(taskBean.getOpenAndInProgressTasksCount(selectedAssignee) >= 2){
-				RequestContext.getCurrentInstance().execute("PF('confirmDialog').show();");
+			if (taskBean.getOpenAndInProgressTasksCount(selectedAssignee) >= 2) {
+				RequestContext.getCurrentInstance().execute(
+						"PF('confirmDialog').show();");
 			} else {
 				createTask();
 			}
