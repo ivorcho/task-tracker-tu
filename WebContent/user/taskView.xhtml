@@ -36,7 +36,7 @@
 					style="width:200px">
 					<f:selectItem itemLabel="No one" itemValue="" />
 					<f:selectItems value="#{editTaskMB.users}" var="user"
-						itemValue="#{user.username}" itemLabel="#{user.fullName}" />
+						itemValue="#{user.username}" itemLabel="#{user.username}" />
 				</p:selectOneMenu>
 				<br />
 				<br />
@@ -67,6 +67,7 @@
 		</div>
 		<!-- taks viewer  -->
 		<h:form>
+
 		<div class="commentField">
 			<p:dataScroller value="#{editTaskMB.comments}" var="comment" style="width:50%">
 				<f:facet name="header">Comments</f:facet>

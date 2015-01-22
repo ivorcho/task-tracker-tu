@@ -34,6 +34,7 @@ public class EditTaskMB implements Serializable{
 	private String commentContent;
 	private List<Comment> comments;
 	private User user;
+	private User selectedAssignee;
 	private List<User> users;
 	
 	private String assignee;
@@ -59,10 +60,11 @@ public class EditTaskMB implements Serializable{
 	}
 	
 	public void commitChangesWhitCheck(){
-		if(assignee.isEmpty()){
+		if(assignee.isEmpty() || assignee.equals(managedTask.getUser().getUsername())){
+			selectedAssignee = null;
 			commitChanges();
 		} else {
-			User selectedAssignee = userBean.getUserByUsername(assignee);
+			selectedAssignee = userBean.getUserByUsername(assignee);
 			if(taskBean.getOpenAndInProgressTasksCount(selectedAssignee) >= 2){
 				RequestContext.getCurrentInstance().execute("PF('confirmDialog').show();");
 			} else {
@@ -72,24 +74,21 @@ public class EditTaskMB implements Serializable{
 	}
 	
 	public void commitChanges(){
-		User user;
-		if(assignee.isEmpty()){
-			user = null;
-		} else {
-			user = userBean.getUserByUsername(assignee);			
-		}
-		managedTask.setUser(user);
+		managedTask.setUser(selectedAssignee);
 		managedTask = taskBean.updateTask(managedTask);
 	}
 	
 	public void saveComment(){
-		Comment comment = new Comment();
-		comment.setAuthor(user);
-		comment.setContent(commentContent);
-		comment.setTask(managedTask);
-		comment.setDate(new Date());
-		commentBean.saveComment(comment);
-		comments.add(comment);
+		if(!commentContent.isEmpty()){
+			Comment comment = new Comment();
+			comment.setAuthor(user);
+			comment.setContent(commentContent);
+			comment.setTask(managedTask);
+			comment.setDate(new Date());
+			commentBean.saveComment(comment);
+			comments.add(comment);	
+			commentContent = null;
+		}
 	}
 	
 	
@@ -150,6 +149,14 @@ public class EditTaskMB implements Serializable{
 
 	public void setAssignee(String assignee) {
 		this.assignee = assignee;
+	}
+
+	public User getSelecdetAssignee() {
+		return selectedAssignee;
+	}
+
+	public void setSelecdetAssignee(User selecdetAssignee) {
+		this.selectedAssignee = selecdetAssignee;
 	}
 
 }

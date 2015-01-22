@@ -13,7 +13,7 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQueries({
-	@NamedQuery(name = "getAllTasks", query = "SELECT t FROM Task t"),
+	@NamedQuery(name = "getAllTasks", query = "SELECT t FROM Task t ORDER BY t.status DESC, t.dueDate"),
 	@NamedQuery(name = "getTaskById", query = "SELECT t FROM Task t WHERE t.id=:id")})
 public class Task implements Serializable {
 
@@ -58,6 +58,8 @@ public class Task implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}   
+	
+	@Lob
 	public String getDescription() {
 		return this.description;
 	}
