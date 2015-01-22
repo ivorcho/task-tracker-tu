@@ -11,6 +11,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.context.RequestContext;
+
 import com.tusofia.taskmanager.beans.TaskBean;
 import com.tusofia.taskmanager.beans.UserBean;
 import com.tusofia.taskmanager.entity.Task;
@@ -32,7 +34,7 @@ public class CreateTaskMB implements Serializable {
 	private String taskName;
 	private String description;
 	private Date currentDate = new Date();
-
+	private User selectedAssignee;
 	private List<User> users;
 
 	@EJB
@@ -48,13 +50,7 @@ public class CreateTaskMB implements Serializable {
 	public void createTask() {
 		boolean taskCreatedSuccessfully = true;
 		try {
-			User user;
-			if (assignee.isEmpty()) {
-				user = null;
-			} else {
-				user = userBean.getUserByUsername(assignee);
-			}
-			Task newTask = new Task(taskName, description, dueDate, status, user);
+			Task newTask = new Task(taskName, description, dueDate, status, selectedAssignee);
 			taskBean.saveTask(newTask);
 		} catch (Exception e) {
 			String message = e.getMessage();
@@ -70,6 +66,20 @@ public class CreateTaskMB implements Serializable {
 						null,
 						new FacesMessage(FacesMessage.SEVERITY_INFO, message,
 								" "));
+			}
+		}
+	}
+	
+	public void createTaskWithCheck(){
+		if(assignee.isEmpty()){
+			selectedAssignee = null;
+			createTask();
+		} else {
+			selectedAssignee = userBean.getUserByUsername(assignee);
+			if(taskBean.getOpenAndInProgressTasksCount(selectedAssignee) >= 2){
+				RequestContext.getCurrentInstance().execute("PF('confirmDialog').show();");
+			} else {
+				createTask();
 			}
 		}
 	}
@@ -140,5 +150,13 @@ public class CreateTaskMB implements Serializable {
 
 	public void setCurrentDate(Date currentDate) {
 		this.currentDate = currentDate;
+	}
+
+	public User getSelectedAssignee() {
+		return selectedAssignee;
+	}
+
+	public void setSelectedAssignee(User selectedAssignee) {
+		this.selectedAssignee = selectedAssignee;
 	}
 }
