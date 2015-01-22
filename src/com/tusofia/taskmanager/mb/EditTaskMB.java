@@ -93,7 +93,6 @@ public class EditTaskMB implements Serializable {
 		managedTask.setUser(selectedAssignee);
 		managedTask = taskBean.updateTask(managedTask);
 	}
-<<<<<<< Updated upstream
 	
 	public void saveComment(){
 		if(!commentContent.isEmpty()){
@@ -106,17 +105,7 @@ public class EditTaskMB implements Serializable {
 			comments.add(comment);	
 			commentContent = null;
 		}
-=======
 
-	public void saveComment() {
-		Comment comment = new Comment();
-		comment.setAuthor(user);
-		comment.setContent(commentContent);
-		comment.setTask(managedTask);
-		comment.setDate(new Date());
-		commentBean.saveComment(comment);
-		comments.add(comment);
->>>>>>> Stashed changes
 	}
 
 	public boolean isStatusEditable() {
