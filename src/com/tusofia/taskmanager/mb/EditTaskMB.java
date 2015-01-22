@@ -6,8 +6,10 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import org.primefaces.context.RequestContext;
 
@@ -23,7 +25,7 @@ import com.tusofia.taskmanager.util.JSFUtil;
 
 @ManagedBean
 @ViewScoped
-public class EditTaskMB implements Serializable{
+public class EditTaskMB implements Serializable {
 
 	/**
 	 * 
@@ -36,10 +38,9 @@ public class EditTaskMB implements Serializable{
 	private User user;
 	private User selectedAssignee;
 	private List<User> users;
-	
+
 	private String assignee;
 	private Date currentDate = new Date();
-	
 
 	@EJB
 	UserBean userBean;
@@ -50,33 +51,49 @@ public class EditTaskMB implements Serializable{
 
 	@PostConstruct
 	public void init() {
-		managedTask = taskBean.getTaskById((int) JSFUtil.getSessionMapValue(Constants.SESSION_ATTRIBUTE_SELECTED_TASK));
+		managedTask = taskBean.getTaskById((int) JSFUtil
+				.getSessionMapValue(Constants.SESSION_ATTRIBUTE_SELECTED_TASK));
 		comments = managedTask.getComments();
 		user = userBean.getUserByUsername(JSFUtil.getLoggedInUsername());
 		users = userBean.getAllUsers();
-		if(managedTask.getUser() != null){
+		if (managedTask.getUser() != null) {
 			assignee = managedTask.getUser().getUsername();
 		}
 	}
-	
-	public void commitChangesWhitCheck(){
-		if(assignee.isEmpty() || assignee.equals(managedTask.getUser().getUsername())){
-			selectedAssignee = null;
-			commitChanges();
-		} else {
-			selectedAssignee = userBean.getUserByUsername(assignee);
-			if(taskBean.getOpenAndInProgressTasksCount(selectedAssignee) >= 2){
-				RequestContext.getCurrentInstance().execute("PF('confirmDialog').show();");
-			} else {
+
+	public void commitChangesWhitCheck() {
+		try {
+			if (assignee.isEmpty()) {
+				selectedAssignee = null;
 				commitChanges();
-			}
+				String message = "Changes saved successfully";
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_INFO, message,
+								" "));
+				} else {
+					selectedAssignee = userBean.getUserByUsername(assignee);
+					if (taskBean.getOpenAndInProgressTasksCount(selectedAssignee) >= 2) {
+						RequestContext.getCurrentInstance().execute(
+								"PF('confirmDialog').show();");
+					} else {
+						commitChanges();
+					}
+				}
+		} catch (Exception e) {
+			String message = e.getMessage();
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Failed to create task", message));
 		}
 	}
-	
-	public void commitChanges(){
+
+	public void commitChanges() {
 		managedTask.setUser(selectedAssignee);
 		managedTask = taskBean.updateTask(managedTask);
 	}
+<<<<<<< Updated upstream
 	
 	public void saveComment(){
 		if(!commentContent.isEmpty()){
@@ -89,20 +106,30 @@ public class EditTaskMB implements Serializable{
 			comments.add(comment);	
 			commentContent = null;
 		}
+=======
+
+	public void saveComment() {
+		Comment comment = new Comment();
+		comment.setAuthor(user);
+		comment.setContent(commentContent);
+		comment.setTask(managedTask);
+		comment.setDate(new Date());
+		commentBean.saveComment(comment);
+		comments.add(comment);
+>>>>>>> Stashed changes
 	}
-	
-	
-	public boolean isStatusEditable(){
-		if(managedTask.getUser() == null){
+
+	public boolean isStatusEditable() {
+		if (managedTask.getUser() == null) {
 			return false;
 		}
 		return user.getUsername().equals(managedTask.getUser().getUsername());
 	}
-	
+
 	public TaskStatus[] getTaskStatuses() {
 		return TaskStatus.values();
 	}
-	
+
 	public Task getManagedTask() {
 		return managedTask;
 	}
